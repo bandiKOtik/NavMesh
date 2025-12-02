@@ -1307,8 +1307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883273731a2f0f54f8ecaf4aa5b7a65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _keyboardMovement: {fileID: 3171401}
-  _pointerMovement: {fileID: 2664595320360677421}
+  _keyboardInputCharacter: {fileID: 3171401}
 --- !u!1001 &2600735093737124986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1360,6 +1359,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
       propertyPath: m_Name
       value: Poniter Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1523056394552904705, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
       propertyPath: m_Name
