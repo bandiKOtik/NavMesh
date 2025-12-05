@@ -21,11 +21,11 @@ public class Mine : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<Character>(out Character _character))
-            StartCoroutine(ActivateMine());
+        if (other.TryGetComponent(out IDamageable damageable))
+            StartCoroutine(OnMineTriggered());
     }
 
-    private IEnumerator ActivateMine()
+    private IEnumerator OnMineTriggered()
     {
         Activate();
 
@@ -47,8 +47,8 @@ public class Mine : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            if (collider.TryGetComponent<Character>(out Character character))
-                character.DealDamage(_damage);
+            if (collider.TryGetComponent(out IDamageable damageable))
+                damageable.DealDamage(_damage);
         }
 
         if (_explosionParticle != null)

@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class CharacterMover
+public class DirectionalMover
 {
     private CharacterController _characterController;
     private float _movementSpeed;
     protected Vector3 _currentDirection;
     public Vector3 CurrentVelocity { get; private set; }
 
-    public CharacterMover(CharacterController characterController, float movementSpeed)
+    public DirectionalMover(CharacterController characterController, float movementSpeed)
     {
         _characterController = characterController;
         _movementSpeed = movementSpeed;

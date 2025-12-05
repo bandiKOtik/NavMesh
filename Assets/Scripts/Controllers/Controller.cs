@@ -1,22 +1,13 @@
-using UnityEngine;
-
 public abstract class Controller
 {
     private bool _isEnabled;
-
-    public abstract Vector3 InputDirection { get; protected set; }
-
     public virtual void Enable() => _isEnabled = true;
     public virtual void Disable() => _isEnabled = false;
     protected abstract void UpdateLogic(float deltaTime);
-
     public void Update(float deltaTime)
     {
         if (_isEnabled == false)
-        {
-            InputDirection = Vector3.zero;
             return;
-        }
 
         UpdateLogic(deltaTime);
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerDirectionalMoveableController : Controller
 {
     private IDirectionMoveable _moveable;
-    public override Vector3 InputDirection { get; protected set; }
+    public Vector3 InputDirection { get; protected set; }
 
     public PlayerDirectionalMoveableController(IDirectionMoveable moveable)
     {

@@ -9,8 +9,6 @@ public class CompositController : Controller
         _controllers = controllers;
     }
 
-    public override Vector3 InputDirection { get; protected set; }
-
     public override void Enable()
     {
         base.Enable();
