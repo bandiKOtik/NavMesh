@@ -1,11 +1,10 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 public class PointerMoveableController : Controller
 {
     private const int leftMouseButtonIndex = 0;
+    private const int groundLayer = 8;
     private Vector3 _currentTargetDestination;
 
     private IDirectionMoveable _moveable;
@@ -13,18 +12,20 @@ public class PointerMoveableController : Controller
     private ParticleSystem _spawnedParticle;
 
     private readonly float _minDistanceToTarget = .1f;
-    private NavMeshQueryFilter _filter;
+    private readonly float _rayCastDistance;
     private NavMeshPath _path;
 
     public PointerMoveableController(
         IDirectionMoveable moveable,
         ParticleSystem pointerParticle,
         float minDistanceToTarget,
+        float rayCastDistance,
         NavMeshPath pathToTarget)
     {
         _moveable = moveable;
         _pointerParticle = pointerParticle;
         _minDistanceToTarget = minDistanceToTarget;
+        _rayCastDistance = rayCastDistance;
         _path = pathToTarget;
         _currentTargetDestination = _moveable.Position;
     }
@@ -44,7 +45,7 @@ public class PointerMoveableController : Controller
 
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, _rayCastDistance, groundLayer))
             {
                 Vector3 destination = hit.point;
 
@@ -58,17 +59,22 @@ public class PointerMoveableController : Controller
         }
     }
 
-    private void ProcessMove(Vector3 targetPosition)
+    private void ProcessMove(Vector3 destinationPosition)
     {
-        if (NavMesh.CalculatePath(_moveable.Position, targetPosition, NavMesh.AllAreas, _path))
+        if (IsTargetReached(_moveable.Position, destinationPosition) == false)
         {
-            if (IsEnoughCornersInPath(_path))
-            {
-                Vector3 currentTarget = _path.corners[1] - _path.corners[0];
+            if (NavMeshUtils.TryGetPath(_moveable.Position, destinationPosition, NavMesh.AllAreas, _path))
+                if (IsEnoughCornersInPath(_path))
+                {
+                    Vector3 currentTarget = _path.corners[1] - _path.corners[0];
 
-                if (IsTargetReached(_moveable.Position, currentTarget) == false)
-                    _moveable.SetMoveDirection(currentTarget);
-            }
+                    if (IsTargetReached(_moveable.Position, currentTarget) == false)
+                        _moveable.SetMoveDirection(currentTarget);
+                }
+        }
+        else
+        {
+            _moveable.SetMoveDirection(Vector3.zero);
         }
     }
 

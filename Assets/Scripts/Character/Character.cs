@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour, IDirectionMoveable, IDirectionRotateable, IDamageable
 {
-    private CharacterAnimation _characterAnimation;
+    private AnimatorProcessor _characterAnimation;
 
     private DirectionalMover _mover;
     private DirectionalRotator _rotator;
@@ -13,25 +13,23 @@ public class Character : MonoBehaviour, IDirectionMoveable, IDirectionRotateable
     public Quaternion CurrentRotation => _rotator.CurrentRotation;
     public Vector3 Position => transform.position;
     public float MaxHealth => 100f;
-    float IDamageable.Health { get; set; }
-
-    private float _currentHealth;
+    public float CurrentHealth { get; private set; }
 
     private void Awake()
     {
         Character character = GetComponent<Character>();
 
-        _characterAnimation = new CharacterAnimation(GetComponent<Animator>(), character);
+        _characterAnimation = new AnimatorProcessor(GetComponent<Animator>(), character);
 
         _mover = new DirectionalMover(GetComponent<CharacterController>(), _movementSpeed);
         _rotator = new DirectionalRotator(transform, _rotationSpeed);
 
-        _currentHealth = MaxHealth;
+        CurrentHealth = MaxHealth;
     }
 
     public void Update()
     {
-        _characterAnimation.Update(_currentHealth, CurrentVelocity.magnitude);
+        _characterAnimation.Update();
 
         _mover.Update(Time.deltaTime);
         _rotator.Update(Time.deltaTime);
@@ -39,6 +37,6 @@ public class Character : MonoBehaviour, IDirectionMoveable, IDirectionRotateable
 
     public void SetMoveDirection(Vector3 direction) => _mover.SetInputDirection(direction);
     public void SetRotationDirection(Vector3 direction) => _rotator.SetInputDirection(direction);
-    public void Heal(float amout) => _currentHealth += amout;
-    public void DealDamage(float amount) => _currentHealth -= amount;
+    public void Heal(float amout) => CurrentHealth += amout;
+    public void DealDamage(float amount) => CurrentHealth -= amount;
 }

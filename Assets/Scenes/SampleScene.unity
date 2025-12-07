@@ -181,6 +181,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2526442985064041608, guid: 9b6dd784244939c4fa5eb55dd955325a, type: 3}
+      propertyPath: _damage
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 8911722830812233015, guid: 9b6dd784244939c4fa5eb55dd955325a, type: 3}
       propertyPath: m_Name
       value: Dr. Miner
@@ -331,7 +335,7 @@ GameObject:
   - component: {fileID: 653173848}
   - component: {fileID: 653173847}
   - component: {fileID: 653173846}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +645,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2798482, y: -0.36470518, z: 0.115916915, w: 0.88047624}
-  m_LocalPosition: {x: 25, y: 26.25, z: -25}
+  m_LocalPosition: {x: 22.5, y: 26.25, z: -25.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -943,6 +947,7 @@ GameObject:
   - component: {fileID: 1784756324}
   - component: {fileID: 1784756323}
   - component: {fileID: 1784756322}
+  - component: {fileID: 1784756325}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -1036,6 +1041,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784756320}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!208 &1784756325
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784756320}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1797036445
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,7 +1122,7 @@ Transform:
   m_GameObject: {fileID: 1797036445}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2798482, y: -0.3647052, z: 0.11591691, w: 0.88047624}
-  m_LocalPosition: {x: 25, y: 26.25, z: -25}
+  m_LocalPosition: {x: 22.5, y: 26.25, z: -25.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1120,6 +1141,7 @@ GameObject:
   - component: {fileID: 1797426227}
   - component: {fileID: 1797426226}
   - component: {fileID: 1797426225}
+  - component: {fileID: 1797426229}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -1213,6 +1235,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1655078913}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &1797426229
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797426224}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.1
 --- !u!1 &1861503764
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,9 +1295,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883273731a2f0f54f8ecaf4aa5b7a65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnabled: 0
   _playerCharacter: {fileID: 3171401}
   _pointParticle: {fileID: 8169285177831099901, guid: dce735dce0031e944b74e2dcac6c9229, type: 3}
   _minDistance: 1
+  _rayCastDistance: 99
 --- !u!1001 &3970051354456004923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1268,9 +1308,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2152225087158954600, guid: 797a0b9eab3e23c499dee78019adf98d, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2566229029687755575, guid: 797a0b9eab3e23c499dee78019adf98d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2566229029687755575, guid: 797a0b9eab3e23c499dee78019adf98d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1278,7 +1322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2566229029687755575, guid: 797a0b9eab3e23c499dee78019adf98d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2566229029687755575, guid: 797a0b9eab3e23c499dee78019adf98d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1311,6 +1355,10 @@ PrefabInstance:
     - target: {fileID: 2942753914990483853, guid: 797a0b9eab3e23c499dee78019adf98d, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465992557076699469, guid: 797a0b9eab3e23c499dee78019adf98d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
