@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class AnimatorProcessor
+public class AnimatorController : MonoBehaviour
 {
     private Animator _animator;
     private Character _character;
@@ -12,21 +12,21 @@ public class AnimatorProcessor
     private int _deadHash = Animator.StringToHash("Dead");
 
     private const string _injuredLayerName = "InjuredLayer";
-    private readonly int _injuredLayerIndex;
+    private int _injuredLayerIndex;
 
     private float _tempHealth;
     private IDirectionMoveable _mover;
 
-    public AnimatorProcessor(Animator animator, Character character)
+    private void Awake()
     {
-        _animator = animator;
-        _character = character;
+        _animator = GetComponent<Animator>();
+        _character = GetComponent<Character>();
         _tempHealth = _character.MaxHealth;
-        _mover = character.GetComponent<IDirectionMoveable>();
+        _mover = _character.GetComponent<IDirectionMoveable>();
         _injuredLayerIndex = _animator.GetLayerIndex(_injuredLayerName);
     }
 
-    public void Update()
+    private void Update()
     {
         float health = _character.CurrentHealth;
         float maxHealth = _character.MaxHealth;

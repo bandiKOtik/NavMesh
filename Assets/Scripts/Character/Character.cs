@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Character : MonoBehaviour, IDirectionMoveable, IDirectionRotateable, IDamageable
 {
-    private AnimatorProcessor _characterAnimation;
-
     private DirectionalMover _mover;
     private DirectionalRotator _rotator;
 
@@ -19,8 +17,6 @@ public class Character : MonoBehaviour, IDirectionMoveable, IDirectionRotateable
     {
         Character character = GetComponent<Character>();
 
-        _characterAnimation = new AnimatorProcessor(GetComponent<Animator>(), character);
-
         _mover = new DirectionalMover(GetComponent<CharacterController>(), _movementSpeed);
         _rotator = new DirectionalRotator(transform, _rotationSpeed);
 
@@ -29,8 +25,6 @@ public class Character : MonoBehaviour, IDirectionMoveable, IDirectionRotateable
 
     public void Update()
     {
-        _characterAnimation.Update();
-
         _mover.Update(Time.deltaTime);
         _rotator.Update(Time.deltaTime);
     }
